@@ -73,6 +73,31 @@ public class MovieDAO {
          */
     }
 
+    /* método usado para poder alterar o filme, para alterar o filme correto primeiramente preciso pegar
+     * o id do filme que vou alterar
+     */
+    public Movie findById(Integer id) throws SQLException {
+        //crio a minha query selecionando tudo da tabela movie filtrando apenas por um id
+        String query = "SELECT * FROM movie WHERE id = ?";
+
+        statement = connection.prepareStatement(query);
+
+        //aqui vou setar o meu valor
+        statement.setInt(1, id);
+
+        //logo depois eu faço o meu ResultSet
+        ResultSet res = statement.executeQuery();
+
+        //meu Movie será criado para ser devolvido então crio uma instância nula
+        Movie movie = null;
+        while (res.next()){
+            //atribuo uma nova instância aqui dentro onde vou passar o meu id e o name do movie
+            movie = new Movie(res.getInt("id"), res.getString("name"));
+        }
+
+        return movie;
+    }
+
     /* para iniciar a criação, precisamos voltar para aquela parte de statement onde fizemos o uso de nosso
      * statement e entender como eles funcionam. VERIFICAR IMAGEM tipos-de-statements. Dentro do meu DAO eu
      * vou ter que utilizar o PreparedStatement, porque a todo momento eu vou ter uma alteração
@@ -82,34 +107,22 @@ public class MovieDAO {
      * caso eu esteja adicionando algo eu tenho que saber o que vou adicionar. Então vou me basear que
      * estou adicionando uma nova model Movie porque estou dentro do meu DAO de Movie (MovieDAO)
      */
-    public void insert(Movie movie){
+    public void insert(Movie movie) throws SQLException {
         //lembrando que o id já está como autoincrement
         String query = "INSERT INTO movie (name) VALUES (?)";
 
         //mais uma vez vamos usar o PreparedStatement e agora de fato vamos usar ele como deve ser utilizado
-        try {
-            statement = connection.prepareStatement(query);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        statement = connection.prepareStatement(query);
+
 
         //no lugar da interrogação eu vou passar os dados de forma dinâmica em runtime, para fazer isso:
-        try {
-            statement.setString(1, movie.getName()); //capturo através do meu getName
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            /* passei o index que está localizado, ou seja, a onde eu desejo inserir, no meu caso só tenho uma
-             * interrogação então eu sei que é na minha primeira posição e o que eu desejo inserir
-             */
-        }
-
+        statement.setString(1, movie.getName()); //capturo através do meu getName
+        /* passei o index que está localizado, ou seja, a onde eu desejo inserir, no meu caso só tenho uma
+         * interrogação então eu sei que é na minha primeira posição e o que eu desejo inserir
+         */
 
         //por fim, mando executar o meu PreparedStatement (executar a minha ação)
-        try {
-            statement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        statement.execute();
 
         /* Resumindo o que aconteceu nessa função inteira: basicamente nós fizemos uma query sql dizendo que
          * eu vou inserir um valor e não disse qual é esse valor (por isso ficou com interrogação), porém
@@ -121,58 +134,33 @@ public class MovieDAO {
     /* a parte de update eu posso ou não retornar dado. Tenho que primeiramente receber o meu dado antigo
      * e o meu dado novo que quero trabalhar
      */
-    public void update(Movie movieOld, Movie movieNew){
+    public void update(Movie movieOld, Movie movieNew) throws SQLException {
         /* vamos indicar o que eu quero fazer no update, neste caso só temos o nosso name onde vamos
          * receber o dado de maneira dinâmica (usando a interrogação) e o id será um dado dinâmico também
          */
         String query = "UPDATE movie SET name = ? WHERE id = ?";
 
-        try {
-            statement = connection.prepareStatement(query);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        //seto meus valores
-        try {
-            statement.setString(1, movieNew.getName());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
-            statement.setInt(2, movieNew.getId());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
 
-        try {
-            statement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        statement = connection.prepareStatement(query);
+
+        //seto meus valores
+        statement.setString(1, movieNew.getName());
+        statement.setInt(2, movieNew.getId());
+        statement.execute();
     }
 
     // a parte de deletar eu vou receber o que de fato eu desejo deletar
-    public void remove(Movie movie){
+    public void remove(Movie movie) throws SQLException {
         String query = "DELETE FROM movie WHERE id = ?"; //para remover em tempo de execução usa interrogação
 
-        try {
-            statement = connection.prepareStatement(query);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        statement = connection.prepareStatement(query);
+
         //logo depois seto o meu valor dinâmico
-        try {
-            statement.setInt(1, movie.getId()); //se usa o setInt já que estou trabalhando com o meu id (interrogação) e eu sei que é inteiro
-            //quero trabalhar com índice 1 por que só tenho uma opção
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        statement.setInt(1, movie.getId()); //se usa o setInt já que estou trabalhando com o meu id (interrogação) e eu sei que é inteiro
+        //quero trabalhar com índice 1 por que só tenho uma opção
+
         //finalizando
-        try {
-            statement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        statement.execute();
 
         //Assim estamos prontos para nosso remove
     }
