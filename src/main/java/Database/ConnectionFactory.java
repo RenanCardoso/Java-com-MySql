@@ -1,4 +1,4 @@
-/*toda vez que eu quiser trabalhar com alguma coisa relacionada a meu banco de dados irei
+package Database;/*toda vez que eu quiser trabalhar com alguma coisa relacionada a meu banco de dados irei
  * criar uma connection factory, que basicamente vai criar uma nova conexão toda vez que precisar.
  * A cada vez que eu chamá-la eu vou ter uma nova conexão em aberto e assim vou poder utilizar em
  * qualquer local e a qualquer momento que eu desejar. Não importa muito onde ela está e nem mesmo
@@ -18,7 +18,7 @@ public class ConnectionFactory {
      */
 
     //vou começar definindo alguns atributos pré-definidos
-    private final String URL = "jdbc:mysql://localhost:3306/movies?serverTimeZone=UTC";
+    private final String URL = "jdbc:mysql://localhost:3306/sistema_academia?serverTimeZone=UTC";
     private final String USER = "root";
     private final String PASSWORD = "123456";
     private final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver"; /* como estou usando um driver do mysql

@@ -1,3 +1,5 @@
+package Database;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -35,7 +37,7 @@ public class SetupDatabase {
              * na url tem que passar as informações necessárias para a conexão. É preciso acrescentar
              * também um timezone que é uma querystring dentro da minha url de conexão
              */
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/movies?serverTimeZone=UTC", "root", "123456");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema_academia?serverTimeZone=UTC", "root", "123456");
             /* as informações são o seu host e a porta, um usuário e senha (não obrigatórios mas pode
              * optar por colocar) e o nome do banco de dados que você vai trabalhar
              */
@@ -66,7 +68,7 @@ public class SetupDatabase {
          */
 
         //crio agora meu comando sql, feito isso já tenho uma tabela e dois campos criados
-        String sql = "CREATE TABLE IF NOT EXISTS movie (id INTEGER NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, PRIMARY KEY (id))";
+        String sql = "CREATE TABLE IF NOT EXISTS aluno (idaluno INTEGER NOT NULL AUTO_INCREMENT, nome VARCHAR(255) NOT NULL, PRIMARY KEY (id))";
         /* Lembrando que deve melhorar o CREATE adicionando um if not exists apenas para evitar que ele fique
          * criando esta tabela e gere alguns erros
          */

@@ -1,4 +1,4 @@
-package com.schoolofnet;
+package com.pbl_103_academia;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.

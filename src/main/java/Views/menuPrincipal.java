@@ -1,7 +1,9 @@
-import Views.ViewAluno;
+package Views;
+
 import java.sql.SQLException;
 import java.util.Scanner;
-public class App {
+
+public class menuPrincipal {
 
     public static void main(String[] args) throws SQLException {
 
@@ -26,9 +28,9 @@ public class App {
                 default:
                     System.out.println("Opção Inválida");
             }
-                    exibirMenuPrincipal();
-                    System.out.printf("Insira sua opção: ");
-                    escolha = scanner.nextInt();
+            exibirMenuPrincipal();
+            System.out.printf("Insira sua opção: ");
+            escolha = scanner.nextInt();
         } while (escolha >= 1 || escolha <= 2);
     }
 
