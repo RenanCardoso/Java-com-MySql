@@ -9,31 +9,34 @@ public class MenuPrincipalView {
 
     //    defino os componentes que serão utilizados
     private JFrame mainFrame;
-    private JLabel selecioneOpcao;
-    private JButton btnOpcao;
+    private JPanel mainPanel;
+    private JButton btnAcao;
 
-    public MenuPrincipalView() {
+    public MenuPrincipalView(){
         verMenuPrincipal();
     }
 
-    private void verMenuPrincipal() {
+    private void verMenuPrincipal(){
 
-        mainFrame = new JFrame();
-        mainFrame.setBounds(100, 200, 1366, 768);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //quando clicar no x vai sair do app
-        mainFrame.setTitle("Sistema Academia");
+//        crio o meu JFrame
+        mainFrame = new JFrame("Sistema Academia");
+        mainFrame.setBounds(100, 100, 450, 250);
+//        e coloco a operação de fechar padrão no botão x
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new FlowLayout(0));
 
-        JPanel mainPanel = new JPanel();
+        mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout());
-        btnOpcao = new JButton("Ver e Gerenciar Alunos");
-        btnOpcao.setActionCommand("verTelaAlunos");
+
+        //abaixo eu crio os meus componentes
+        btnAcao = new JButton("Ver e Gerenciar Alunos");
+        btnAcao.setActionCommand("verTelaAlunos");
 
         mainFrame.add(mainPanel);
-        mainFrame.add(btnOpcao);
+        mainFrame.add(btnAcao);
 
-        //aqui chamo a controller pra ver qual opcao o usuario escolheu
-        btnOpcao.addActionListener(new MenuPrincipalController(btnOpcao));
+//        aqui vou trabalhar com meus eventos
+        btnAcao.addActionListener(new MenuPrincipalController(btnAcao)); //a partir daqui a Controller passará a assumir
 
         mainFrame.setVisible(true);
     }

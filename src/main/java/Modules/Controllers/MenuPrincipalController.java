@@ -23,7 +23,7 @@ public class MenuPrincipalController implements ActionListener {
 
         switch (btnOpcao){
             case "verTelaAlunos":
-
+                System.out.println("AEAEAE");
 //                new ViewAluno();
             break;
 
